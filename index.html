@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#d5f2df" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="description" content="横屏玩一场甜甜的球球大作战：吃食物、追彩蛋，与电脑小球比拼成长。" />
+    <title>球球甜甜圈 · 横屏大作战</title>
+    <script type="module" crossorigin src="./assets/index-apEGLYsf.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BKVC_4hm.css">
+  </head>
+  <body>
+    <main id="game-shell" class="game-shell">
+      <canvas id="game-canvas" aria-label="球球大作战场地"></canvas>
+      <header class="hud">
+        <div class="brand"><span class="brand-ball">●</span><span>球球<span class="brand-small">甜甜圈</span></span></div>
+        <div class="stat"><span>我的质量</span><strong id="mass-value">0</strong></div>
+        <div class="stat"><span>当前排名</span><strong id="rank-value">—</strong></div>
+        <button id="pause-button" class="icon-button" aria-label="暂停游戏" disabled>Ⅱ <span>暂停</span></button>
+      </header>
+      <aside class="side-panel" aria-label="电脑对手榜与彩蛋效果">
+        <div class="board-title"><strong>成长排行榜</strong><span>电脑对手</span></div>
+        <ol id="leaderboard" class="leaderboard"></ol>
+        <div id="effects" class="effects">
+          <div class="effect" id="speed-effect" hidden><span>🍩 彩虹加速</span><strong></strong></div>
+          <div class="effect" id="magnet-effect" hidden><span>⭐ 星星吸引</span><strong></strong></div>
+        </div>
+        <p class="board-note">吃小球，也要躲大球！</p>
+      </aside>
+      <div id="notifications" class="notifications" role="status" aria-live="polite"></div>
+      <div id="controls" class="controls" hidden>
+        <div id="joystick" class="joystick" role="group" aria-label="拖动摇杆移动">
+          <span class="joystick-guide">移动</span><span id="joystick-knob" class="joystick-knob"></span>
+        </div>
+        <div class="split-control"><button id="split-button" class="split-button" aria-label="向移动方向分裂">●●<span>分裂</span></button><span class="desktop-tip">空格也能分裂</span></div>
+      </div>
+      <section id="start-panel" class="modal-layer">
+        <div class="welcome-card">
+          <div class="welcome-copy">
+            <span class="eyebrow">一口一个快乐 · 横屏开吃</span>
+            <h1>球球<span>甜甜圈</span></h1>
+            <p class="welcome-description">从一颗小球开始，吃成场上的大明星！</p>
+            <div class="how-to"><span>① 摇杆移动，吃食物长大</span><span>② 吃掉小球，躲开大球</span><span>③ 朝移动方向分裂出击</span></div>
+            <button id="start-button" class="primary-button">开始大作战 <span>→</span></button>
+            <p class="input-tip">手机：左手摇杆 · 右手分裂<br />电脑：鼠标引导 / 方向键移动 · 空格分裂</p>
+          </div>
+          <div class="welcome-art" aria-hidden="true"><div class="orbit orbit-one">✦</div><div class="orbit orbit-two">🍩</div><div class="hero-ball"><i></i><i></i><b></b><span></span></div><div class="mini-ball"><i></i><i></i><b></b></div><span class="art-label">今天也要吃得开心</span></div>
+          <div class="egg-menu"><div><span class="egg-icon">🍬</span><strong>金色糖果</strong><small>额外成长，一口变大</small></div><div><span class="egg-icon">🍩</span><strong>彩虹甜甜圈</strong><small>短时加速，追风开吃</small></div><div><span class="egg-icon">⭐</span><strong>星星果</strong><small>吸引身边的普通食物</small></div></div>
+          <p class="solo-note">单人休闲局 · 对手均为电脑控制</p>
+        </div>
+      </section>
+      <section id="pause-panel" class="modal-layer" hidden>
+        <div class="dialog-card"><span class="dialog-emoji">☕</span><h2 id="pause-title">歇一口，再开吃</h2><p id="pause-description">游戏已暂停，小球会乖乖等你。</p><button id="resume-button" class="primary-button">继续游玩 →</button><button id="restart-paused-button" class="text-button">重新开始这一局</button></div>
+      </section>
+      <section id="end-panel" class="modal-layer" hidden>
+        <div class="dialog-card"><span class="dialog-emoji">🏆</span><h2>这局吃得很开心！</h2><p>再来一局，冲上成长榜！</p><div class="result-grid"><div><span>本局最高质量</span><strong id="result-mass">0</strong></div><div><span>最好排名</span><strong id="result-rank">—</strong></div><div><span>吃到食物</span><strong id="result-food">0</strong></div><div><span>游玩时间</span><strong id="result-time">0 秒</strong></div></div><button id="replay-button" class="primary-button">再玩一次 →</button></div>
+      </section>
+      <div class="scene-tag">薄荷甜甜原野 <span>✦</span></div>
+    </main>
+    <section id="orientation-gate" class="orientation-gate" role="dialog" aria-modal="true" aria-labelledby="orientation-title">
+      <div class="rotate-phone" aria-hidden="true">↻</div><h2 id="orientation-title">请横屏游玩</h2><p>把手机横过来，甜甜原野才装得下！</p><span>旋转后点击「开始」或「继续」游玩</span>
+    </section>
+  </body>
+</html>
